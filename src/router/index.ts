@@ -13,6 +13,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '首页'
     }
+  },
+  {
+    path: '/carShow',
+    name: 'carShow',
+    component: () => import('@/views/Home/carShow.vue'),
+    meta: {
+      title: '车展'
+    }
   }
 ]
 const router = createRouter({

@@ -4,8 +4,9 @@
 
 <script setup lang="ts">
 import * as THREE from 'three'
+import { TextureLoader } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+// import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { ref, onMounted } from 'vue'
 // 初始化场景
 const scene = new THREE.Scene()
@@ -56,9 +57,15 @@ const render = () => {
 // scene.add(cube);
 
 // 添加球
-const geometry = new THREE.SphereGeometry(5, 32, 32)
-const loader = new RGBELoader()
-loader.load('./imgs/hdr/10xiangxi-1.hdr', (texture) => {
+const geometry = new THREE.SphereGeometry(
+  /*半径*/ 5,
+  /*垂直节点数量*/ 32,
+  /*水平节点数量*/ 32
+) //节点数量越大，需要计算的三角形就越多，影响性能
+const loader = new TextureLoader() // 贴全景图
+loader.load('./imgs/car/images/textures/skymap2.jpg', (texture) => {
+  // const loader = new RGBELoader() // 载入模型
+  // loader.load('./imgs/hdr/10xiangxi-1.hdr', (texture) => {
   const material = new THREE.MeshBasicMaterial({ map: texture }) // 材质  map: texture 颜色贴图
   const sphere = new THREE.Mesh(geometry, material) // Mesh(geometry(几何体): Geometry, material(材质): Material ) 网格、构造器
   sphere.geometry.scale(1, 1, -1)
